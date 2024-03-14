@@ -1,0 +1,217 @@
+{% extends 'base.html' %}
+{% block title %} Workout Log {% endblock title%}
+{% block head %}
+
+<h1>Workout Log</h1>
+
+
+<div class="container mt-2">
+  <div class="row">
+    <div class="col-md-3"></div>
+
+    <div class="col-md-6">
+      {% for message in messages %}
+      <div
+        class="alert alert-{{message.tags}} alert-dismissible fade show"
+        role="alert"
+      >
+        <strong></strong> {{message}}
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        ></button>
+      </div>
+      {% endfor %} {% comment %} Contact Us COde {% endcomment %}
+
+      <form action="/workoutlog" method="post">{% csrf_token %}
+        {% csrf_token %}
+
+
+        <div class="form-group">
+            <input
+              type="text"
+              class="form-control mt-2"
+              value="{{user.username}}"
+              name="Fullname"
+              placeholder="Enter Your Name"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control mt-2"
+              value="{{user.email}}"
+              name="mail"
+              placeholder="email"
+              readonly
+              required
+            />
+          </div>
+
+<div class="form-group">
+  <select class="form-control mt-2" id="workout" name="workout" required onchange="checkCustomWorkout()">
+    <option selected>Select Workout</option>
+    <option value="Cardio">Cardio</option>
+    <option value="Circuit Training">Circuit Training (Full body Workout)</option>
+    <option value="Core">Core (ABS and Back Workout)</option>
+    <option value="Upper Arm">Upper Arm (Warmup, Biceps and Triceps)</option>
+    <option value="Push">Push (Warmup, Chest and Shoulder)</option>
+    <option value="Legs">Legs</option>
+    <option value="Biceps">Biceps</option>
+    <option value="Triceps">Triceps</option>
+    <option value="Chest">Chest</option>
+    <option value="Shoulder">Shoulder</option>
+    <option value="ABS">ABS</option>
+    <option value="Other">Other</option>
+  </select>
+</div>
+
+<div id="customWorkoutInput" style="display: none;">
+  <input type="text" class="form-control mt-2" id="customWorkout" name="customWorkout" placeholder="Enter your own workout type">
+</div>
+
+<!-- Hidden input field to store the selected workout -->
+<input type="hidden" id="selectedWorkoutInput" name="selectedWorkoutInput">
+
+<script>
+  function checkCustomWorkout() {
+    var selectedWorkout = document.getElementById("workout").value;
+    var customWorkoutInput = document.getElementById("customWorkoutInput");
+    var customWorkout = document.getElementById("customWorkout");
+    var selectedWorkoutInput = document.getElementById("selectedWorkoutInput");
+
+    if (selectedWorkout === "Other") {
+      customWorkoutInput.style.display = "block";
+      // Set the value of the hidden input field to the custom workout
+      selectedWorkoutInput.value = customWorkout.value;
+    } else {
+      customWorkoutInput.style.display = "none";
+      // Set the value of the hidden input field to the selected workout
+      selectedWorkoutInput.value = selectedWorkout;
+    }
+  }
+</script>
+
+          <div class="form-group">
+                    <label for="r1" class="text-white">Set-1</label>
+                    <select class="form-control mt-2" id="w1" name="w1" required>
+                        <option selected>Select weights in kgs</option>
+                        <option value="0">0</option>
+                        <option value="2.5">2.5</option>
+                        <option value="5.0">5.0</option>
+                        <option value="7.5">7.5</option>
+                        <option value="10">10</option>
+                        <option value="12.5">12.5</option>
+                        <option value="15.0">15.0</option>
+                        <option value="20.0">20.0</option>
+
+                    </select>
+                </div>
+
+                <div class="form-group">
+
+                    <input type="text" class="form-control mt-2" name="r1" placeholder="Reps" required>
+                </div>
+
+          <div class="form-group">
+                    <label for="r2" class="text-white">Set-2</label>
+                    <select class="form-control mt-2" id="w2" name="w2" required>
+                        <option selected>Select weights in kgs</option>
+                        <option value="0">0</option>
+                        <option value="2.5">2.5</option>
+                        <option value="5.0">5.0</option>
+                        <option value="7.5">7.5</option>
+                        <option value="10">10</option>
+                        <option value="12.5">12.5</option>
+                        <option value="15.0">15.0</option>
+                        <option value="20.0">20.0</option>
+
+                    </select>
+                </div>
+
+                <div class="form-group">
+
+                    <input type="text" class="form-control mt-2" name="r2" placeholder="Reps" required>
+                </div>
+
+          <div class="form-group">
+                    <label for="r3" class="text-white">Set-3</label>
+                    <select class="form-control mt-2" id="w3" name="w3" required>
+                        <option selected>Select weights in kgs</option>
+                        <option value="0">0</option>
+                        <option value="2.5">2.5</option>
+                        <option value="5.0">5.0</option>
+                        <option value="7.5">7.5</option>
+                        <option value="10">10</option>
+                        <option value="12.5">12.5</option>
+                        <option value="15.0">15.0</option>
+                        <option value="20.0">20.0</option>
+
+                    </select>
+                </div>
+
+                <div class="form-group">
+
+                    <input type="text" class="form-control mt-2" name="r3" placeholder="Reps" required>
+                </div>
+
+
+        <div class="form-group">
+            <label for="login" class="text-white">Log In</label>
+          <input
+            type="time"
+            class="form-control mt-2"
+            name="login"
+            id="login"
+            placeholder="Login Time"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+            <label for="logout" class="text-white">Log Out</label>
+          <input
+            type="time"
+            class="form-control mt-2"
+            name="logout"
+            id="logout"
+            placeholder="Login Out"
+            required
+          />
+        </div>
+
+
+        <div class="form-group">
+
+                     <select  class="form-control mt-2" id="trainer" name="trainer"  required>
+                     <option selected> Select Trainer </option>
+                          {% for  p in SelectTrainer %}
+
+                    <option value="{{p.name}}">{{p.name}}</option>
+                        {% endfor %}
+
+                    </select>
+
+
+
+        </div>
+
+
+
+
+        <br />
+        <div class="d-grid gap-2">
+          <button class="btn btn-warning" type="submit">Workout Log</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-md-3"></div>
+  </div>
+</div>
+
+{% endblock head %}

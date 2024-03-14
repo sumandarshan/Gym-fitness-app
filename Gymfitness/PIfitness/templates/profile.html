@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block title %}
+Profile
+{% endblock title %}
+{% block body %}
+
+
+
+
+<div class="container">
+
+    <div class="row">
+
+    <div class="col-md-4">
+
+    <h1>Enrollment Details</h1>
+    {% comment %} Contact Us COde  {% endcomment %}
+    {% for post in posts %}
+
+
+    <ul class="list-group">
+        <li class="list-group-item bg-warning text-dark"><h5>Name : {{post.Fullname}}</h5></li>
+        <li class="list-group-item bg-warning text-dark"><h5>Email : {{post.Email}}</h5></li>
+        <li class="list-group-item bg-warning text-dark"><h5>Gender : {{post.Gender}}</h5></li>
+        <li class="list-group-item bg-warning text-dark"><h5>Phone Number : {{post.Phonenumber}}</h5></li>
+        <li class="list-group-item bg-warning text-dark"><h5>DOB : {{post.DOB}}</h5></li>
+        <li class="list-group-item bg-warning text-dark"><h5>Membership Plan : {{post.SelectMembershipPlan}}</h5></li>
+        <li class="list-group-item bg-warning text-dark"><h5>Trainer : {{post.SelectTrainer}}</h5></li>
+        <li class="list-group-item bg-warning text-dark"><h5>Reference : {{post.Reference}}</h5></li>
+        <li class="list-group-item bg-warning text-dark"><h5>Address : {{post.Address}}</h5></li>
+        <li class="list-group-item bg-warning text-dark"><h5>Payment Status : {{post.Paymentstatus}}</h5></li>
+        <li class="list-group-item bg-warning text-dark"><h5>Amount Paid : {{post.Price}}</h5></li>
+        <li class="list-group-item bg-warning text-dark"><h5>Upcoming Due Date : {{post.DueDate}}</h5></li>
+        <li class="list-group-item bg-warning text-dark"><h5>Joining date : {{post.timeStamp}}</h5></li>
+      </ul>
+      {% endfor %}
+    </div>
+
+
+
+    <div class="col-md-8">
+      <div><Center><h2 class="display-4 mt-3"><b>Workout Tracker</b></h2></Center></div>
+
+      <table class="table">
+        <thead class="thead-warning">
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Login</th>
+            <th scope="col">Logout</th>
+            <th scope="col">Workout</th>
+            <th scope="col">TrainedBy</th>
+            <th scope="col">W1</th>
+              <th scope="col">R1</th>
+              <th scope="col">W2</th>
+              <th scope="col">R2</th>
+              <th scope="col">W3</th>
+              <th scope="col">R3</th>
+
+          </tr>
+        </thead>
+        <tbody>
+
+          {% for wk in workoutlog %}
+         <tr>
+                <td>{{ wk.Selectdate }}</td>
+                <td>{{ wk.Login }}</td>
+                <td>{{ wk.Logout }}</td>
+              <td>
+            {% if selected_workout %}
+                {{ selected_workout }}  <!-- Display selected workout -->
+            {% elif custom_workout %}
+                {{ custom_workout }}  <!-- Display custom workout if exists -->
+            {% else %}
+                {{ wk.SelectWorkout }}
+            {% endif %}
+              </td>
+                <td>{{ wk.TrainedBy }}</td>
+                <td>{{ wk.w1 }}</td>
+                <td>{{ wk.r1 }}</td>
+                <td>{{ wk.w2 }}</td>
+                <td>{{ wk.r2 }}</td>
+                <td>{{ wk.w3 }}</td>
+                <td>{{ wk.r3 }}</td>
+            </tr>
+          {% endfor %}
+
+
+        </tbody>
+      </table>
+
+        <form action="{% url 'delete_profile' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete WorkoutLog</button>
+        </form>
+
+
+    </div>
+    </div>
+
+{% endblock body %}

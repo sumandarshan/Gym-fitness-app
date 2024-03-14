@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Workouts</title>
+    <style>
+    {% load static %}
+    body {
+        background-image: url('{% static "images/bg.jpg" %}');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+    }
+</style>
+
+</head>
+<body>
+
+<div class = "wk" style="margin-bottom: 50px;">
+    <h1 style="font-size: 44px;">BICEPS</h1>
+    {% load static %}
+    <div style="display: flex; align-items: center;">
+        <img src="{% static 'images/biceps.jpg' %}" alt="Image" style="margin-right: 100px; width: 600px; height: 450px;">
+        <div>
+            <ul type="disk">
+                <h2 style="font-size: 42px;">Health Benefits</h2>
+                <li style="font-size: 38px;">Helps to Strengthens the arms</li>
+                <li style="font-size: 38px;">Helps to Improves forearm grip and strength</li>
+                <li style="font-size: 38px;">Improve flexibility</li>
+                <li style="font-size: 38px;">Helps to fulfill daily tasks</li>
+                <li style="font-size: 38px;">Low Risk of injury</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class = "wk">
+    <h1 style="font-size: 44px;">BACK</h1>
+    {% load static %}
+    <div style="display: flex; align-items: center;">
+        <img src="{% static 'images/back.jpg' %}" alt="Image" style="margin-right: 100px; width: 800px; height: 450px;">
+        <div>
+            <ul type="disk">
+                <h2 style="font-size: 42px;">Health Benefits</h2>
+                <li style="font-size: 38px;">Alleviate and Prevent Back Pain</li>
+                <li style="font-size: 38px;">Improve Spinal Stability</li>
+                <li style="font-size: 38px;">Improve Your Posture and Self-Confidence</li>
+                <li style="font-size: 38px;">A stronger back allows you to maintain a proper, firm posture more naturally</li>
+                <li style="font-size: 38px;">A strong back can help to improve spinal alignment</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div class = "wk">
+    <h1 style="font-size: 44px;">SHOULDER</h1>
+    {% load static %}
+    <div style="display: flex; align-items: center;">
+        <img src="{% static 'images/shoulder.jpg' %}" alt="Image" style="margin-right: 100px; width: 1900px; height: 550px;">
+        <div>
+            <ul type="disk">
+                <h2 style="font-size: 42px;">Health Benefits</h2>
+                <li style="font-size: 38px;">Strength and Flexibility</li>
+                <li style="font-size: 38px;">Improved stability</li>
+                <li style="font-size: 38px;">The shoulder muscles have a wide range of functions, including abduction, adduction, flexion, extension, internal and external rotation.</li>
+                <li style="font-size: 38px;">Improves athletic performance and reduce your risk of injury</li>
+                <li style="font-size: 38px;">It improves stability</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div class = "wk">
+    <h1 style="font-size: 44px;">CHEST</h1>
+    {% load static %}
+    <div style="display: flex; align-items: center;">
+        <img src="{% static 'images/chest.jpg' %}" alt="Image" style="margin-right: 100px; width: 600px; height: 400px;">
+        <div>
+            <ul type="disk">
+                <h2 style="font-size: 42px;">Health Benefits</h2>
+                <li style="font-size: 38px;">Exercises for chest not only strengthen the muscles of your chest, but strengthen and tone the muscles of your upper back</li>
+                <li style="font-size: 38px;">Contributes to upper-body strength output</li>
+                <li style="font-size: 38px;">Improves posture</li>
+                <li style="font-size: 38px;">It Engages abdominal muscles</li>
+                <li style="font-size: 38px;">Improves blood circulation</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+<div class = "wk">
+    <h1 style="font-size: 44px;">LEGS</h1>
+    {% load static %}
+    <div style="display: flex; align-items: center;">
+        <img src="{% static 'images/leg.jpg' %}" alt="Image" style="margin-right: 100px; width: 600px; height: 400px;">
+        <div>
+            <ul type="disk">
+                <h2 style="font-size: 42px;">Health Benefits</h2>
+                <li style="font-size: 38px;">Maintains good body symmetry</li>
+                <li style="font-size: 38px;">Makes joints stronger</li>
+                <li style="font-size: 38px;">Promotes better muscle conditioning and body composition</li>
+                <li style="font-size: 38px;">Improves functional movements</li>
+                <li style="font-size: 38px;">Promotes better muscle conditioning and body composition</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+ <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const wkDivs = document.querySelectorAll(".wk");
+            const itemsPerPage = 1; // Change this to the number of items you want to display per page
+            const totalPages = Math.ceil(wkDivs.length / itemsPerPage);
+            let currentPage = 1;
+
+            showPage(currentPage);
+
+            function showPage(page) {
+                const startIndex = (page - 1) * itemsPerPage;
+                const endIndex = startIndex + itemsPerPage;
+
+                wkDivs.forEach((div, index) => {
+                    if (index >= startIndex && index < endIndex) {
+                        div.style.display = "block";
+                    } else {
+                        div.style.display = "none";
+                    }
+                });
+            }
+
+            function goToPage(page) {
+                if (page < 1 || page > totalPages) return;
+                currentPage = page;
+                showPage(currentPage);
+            }
+
+            // Example: Adding pagination buttons
+            const paginationContainer = document.createElement("div");
+            paginationContainer.classList.add("pagination");
+
+            for (let i = 1; i <= totalPages; i++) {
+                const button = document.createElement("button");
+                button.textContent = i;
+                button.addEventListener("click", function() {
+                    goToPage(i);
+                });
+                paginationContainer.appendChild(button);
+            }
+
+            document.body.appendChild(paginationContainer);
+        });
+    </script>
+
+
+
+
+
+
+</body>
+</html>
